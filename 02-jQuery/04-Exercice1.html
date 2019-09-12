@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercice 1 avec jQuery !</title>
+</head>
+<body>
+
+    <form action="traitement.php" id="MonFormulaire">
+        <input type="text" required placeholder="Nom et Prénom" id="nomcomplet">
+        <input type="submit" value="Je Valide">
+    </form>
+
+    <!-- CONSIGNE : Avec l'aide de jQuery, vous devrez :
+    
+        1. A la soumission du formulaire, cacher le formulaire puis :
+        2. Créer un élément <p>
+        3. Dans cet élément, afficher : Bonjour <nomcomplet> correspondant au nom saisie dans le formulaire.
+    Intégration de jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function() {
+          
+            $('#MonFormulaire').submit(function(evenement) {
+
+                // Stopper la redirection HTTP
+                evenement.preventDefault();
+
+                // Cacher le formulaire
+                // $('#MonFormulaire').hide();
+
+                // Créer un <p> pour afficher les données
+                // $('<p>Bonjour ' + $('#nomcomplet').val() + '</p>').appendTo('body');
+
+                $('#MonFormulaire').replaceWith('<p>Bonjour ' + $('#nomcomplet').val() + '</p>');
+
+            })
+         
+        });
+    </script>
+</body>
+</html>
