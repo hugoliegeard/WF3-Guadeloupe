@@ -30,14 +30,14 @@
                 evenement.preventDefault();
 
                 // Cacher le formulaire
-                // $('#MonFormulaire').hide();
+                $('#MonFormulaire').hide();
 
                 // Créer un <p> pour afficher les données
-                // $('<p>Bonjour ' + $('#nomcomplet').val() + '</p>').appendTo('body');
+                 $('<p>Bonjour ' + $('#nomcomplet').val() + '</p>').appendTo('body');
 
                 $('#MonFormulaire').replaceWith('<p>Bonjour ' + $('#nomcomplet').val() + '</p>');
 
-            })
+            });
          
         });
     </script>

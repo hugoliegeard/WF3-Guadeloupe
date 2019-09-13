@@ -37,7 +37,6 @@
     // alert('Bienvenue dans ce cours JQ !');
 
     // En JS
-    document.getElementById('texteEnJQ').innerHTML = 
         '<strong>Mon texte en JS</strong>';
 
     // En JQ
