@@ -1,0 +1,13 @@
+{
+  "name": "Hello_Node_World",
+  "version": "1.0.0",
+  "description": "Application de découverte NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server-node.js"
+  },
+  "keywords": [],
+  "author": "Hugo LIEGEARD",
+  "license": "ISC"
+}
