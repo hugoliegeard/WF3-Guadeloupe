@@ -1,5 +1,5 @@
 {
-  "name": "Hello_Node_World",
+  "name": "hello_node_world",
   "version": "1.0.0",
   "description": "Application de découverte NodeJS",
   "main": "index.js",
