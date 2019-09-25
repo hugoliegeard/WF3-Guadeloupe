@@ -1,0 +1,28 @@
+{
+  "contacts": [
+    {
+      "prenom"  : "Hugo",
+      "nom"     : "LIEGEARD",
+      "email"   : "wf3@hl-media.fr",
+      "tel"     : "0783 97 15 15"
+    },
+    {
+      "prenom"  : "Nia",
+      "nom"     : "VITALIS",
+      "email"   : "nia971@gmail.com",
+      "tel"     : "0690 12 20 07"
+    },
+    {
+      "prenom"  : "Aurélie",
+      "nom"     : "NABAJOTH",
+      "email"   : "aurelie.nabajoth@outlook.com",
+      "tel"     : "0690 45 20 19"
+    },
+    {
+      "prenom"  : "Léna",
+      "nom"     : "BOISSERON",
+      "email"   : "lena.boisseron@yahoo.fr",
+      "tel"     : "0690 89 18 15"
+    }
+  ]
+}
