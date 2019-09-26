@@ -1,0 +1,79 @@
+{% extends "layout/base.html" %}
+
+{% block title %} Ajouter un Contact {% endblock %}
+
+{% block content %}
+<div class="p-3 mx-auto text-center">
+    <h1 class="display-4">Ajouter un Contact</h1>
+</div>
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-sm p-4">
+                    <form method="post" novalidate id="contact">
+
+                        <!-- Prénom -->
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            <input type="text"
+                                   id="prenom"
+                                   name="prenom"
+                                   class="form-control"
+                                   placeholder="Saisissez votre Prénom">
+
+                            <div class="invalid-feedback">
+                                Vous devez saisir votre prénom
+                            </div>
+
+                        </div>
+
+                        <!-- Nom -->
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text"
+                                   id="nom"
+                                   name="nom"
+                                   class="form-control"
+                                   placeholder="Saisissez votre Nom">
+
+                            <div class="invalid-feedback">
+                                Vous devez saisir votre nom
+                            </div>
+
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   class="form-control"
+                                   placeholder="Saisissez votre Email">
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div class="form-group">
+                            <label>Téléphone</label>
+                            <input type="tel"
+                                   id="tel"
+                                   name="tel"
+                                   class="form-control"
+                                   placeholder="Saisissez votre Téléphone">
+                        </div>
+
+                        <!-- Bouton de soumission -->
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block">
+                                Ajouter le Contact
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

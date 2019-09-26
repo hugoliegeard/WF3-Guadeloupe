@@ -24,22 +24,67 @@ nunjucks.configure('views', {
 });
 
 /**
+ * Importer le package 'lowdb'
+ * https://www.npmjs.com/package/lowdb
+ * ----------------------------------------
+ * Il nous permettra de stocker et manipuler
+ * des données dans un fichier au format JSON.
+ */
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const adapter = new FileSync('data/contacts.json');
+const db = low(adapter);
+
+/**
+ * Pour récupérer les données POST, nous avons besoin
+ * de la librairie 'body-parser'. Elle nous permettra
+ * de manipuler les données 'POST' de la requète.
+ */
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+/**
  * Les objets 'req' (requete) et 'res' (réponse)
  * sont exactement les mêmes que ceux fournit par Node.
  */
 app.get('/', (req, res) => {
-
-    let data = db.get('contacts')
-        .value();
-
-    console.log(data);
     // res.sendFile(__dirname + '/views/html/index.html');
     res.redirect('/contacts');
 });
 
 app.get('/contacts', (req, res) => {
+
+    // -- Récupérer la liste des contacts depuis mon fichier JSON
+    const contactsDb = db.get('contacts').value();
+
     // res.sendFile(__dirname + '/views/html/contacts.html');
-    res.render('html/contacts.html');
+    res.render('html/contacts.html', {
+        contacts: contactsDb
+    });
+});
+
+app.get('/ajouter-un-contact', (req, res) => {
+    res.render('html/ajouter-un-contact.html');
+});
+
+app.post('/ajouter-un-contact', (req, res) => {
+    /**
+     * Lors de la soumission du formulaire avec
+     * la méthode POST, c'est cette fonction qui
+     * sera executée.
+     */
+    // console.log( req.body );
+    const contact = req.body;
+
+    // On ajoute le nouveau contact dans notre fichier JSON
+    db.get('contacts')
+        .push(contact)
+        .write();
+
+    // On redirige l'utilisateur sur les contacts
+    res.redirect('/contacts');
 });
 
 app.get('/contact', (req, res) => {
