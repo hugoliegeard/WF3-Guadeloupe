@@ -10,12 +10,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm p-4">
                             {# {{ contacts | dump }} #}
                             <!-- Commentaire HTML -->
                             <table class="table">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Email</th>
@@ -25,10 +26,19 @@
                             <tbody>
                                 {% for contact in contacts %}
                                     <tr>
+                                        <td>{{ contact.id }}</td>
                                         <td>{{ contact.prenom }}</td>
                                         <td>{{ contact.nom }}</td>
                                         <td>{{ contact.email }}</td>
                                         <td>{{ contact.tel }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">
+                                            <p class="text-center">
+                                                Aucun contact pour le moment.
+                                            </p>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

@@ -77,6 +77,7 @@ app.post('/ajouter-un-contact', (req, res) => {
      */
     // console.log( req.body );
     const contact = req.body;
+    contact.id = Date.now();
 
     // On ajoute le nouveau contact dans notre fichier JSON
     db.get('contacts')
