@@ -77,7 +77,9 @@ app.post('/ajouter-un-contact', (req, res) => {
      */
     // console.log( req.body );
     const contact = req.body;
-    contact.id = Date.now();
+
+    // Création d'un ID pour le contact
+    contact.id = Date.now().toString();
 
     // On ajoute le nouveau contact dans notre fichier JSON
     db.get('contacts')
@@ -85,12 +87,41 @@ app.post('/ajouter-un-contact', (req, res) => {
         .write();
 
     // On redirige l'utilisateur sur les contacts
-    res.redirect('/contacts');
+    res.redirect('/contact/' + contact.id );
 });
 
-app.get('/contact', (req, res) => {
-    // res.sendFile(__dirname + '/views/html/contact.html');
-    res.render('html/contact.html');
+app.get('/contact/:id', (req, res) => {
+
+    /**
+     * On souhaite récupérer dans notre fichier JSON
+     * le contact ayant l'ID passé dans l'URL !
+     */
+    const contact = db
+        .get('contacts')
+        .find({ id: req.params.id })
+        .value();
+
+    // console.log( contact );
+
+    res.render('html/contact.html', {
+        contact: contact
+    });
+});
+
+// -- La route permettant la suppression d'un contact
+app.get('/contact/:id/delete', (req, res) => {
+
+    /**
+     * On supprime le contact dans le fichier JSON
+     * en nous basant sur son ID.
+     */
+    db.get('contacts')
+        .remove({ id: req.params.id })
+        .write();
+
+    // Redirection sur la page principal
+    res.redirect('/contacts');
+
 });
 
 /**
