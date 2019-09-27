@@ -46,6 +46,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 /**
+ * Importer le package 'vCard'
+ */
+const vCardsJS = require('vcards-js');
+
+/**
+ * Importer le package 'qrCode'
+ */
+const qrCode = require('qrcode');
+
+/**
  * Les objets 'req' (requete) et 'res' (réponse)
  * sont exactement les mêmes que ceux fournit par Node.
  */
@@ -103,9 +113,29 @@ app.get('/contact/:id', (req, res) => {
 
     // console.log( contact );
 
-    res.render('html/contact.html', {
-        contact: contact
+    /**
+     * Je souhaite également, générer une vCard pour le contact
+     * Puis, a partir vCard générer un qrCode à afficher sur la page.
+     */
+    const vCardContact = vCardsJS();
+    vCardContact.firstName = contact.prenom;
+    vCardContact.lastName = contact.nom;
+    vCardContact.email = contact.email;
+    vCardContact.cellPhone = contact.tel;
+
+    // Génération du QrCode
+    qrCode.toDataURL(vCardContact.getFormattedString(),
+        (err, url) => {
+            /**
+             * Quand le qrCode est généré on retourne
+             * une réponse à l'utilisateur.
+             */
+            res.render('html/contact.html', {
+                contact: contact,
+                'qrCodeUrl' : url
+            });
     });
+
 });
 
 // -- La route permettant la suppression d'un contact
@@ -122,6 +152,23 @@ app.get('/contact/:id/delete', (req, res) => {
     // Redirection sur la page principal
     res.redirect('/contacts');
 
+});
+
+// --------------- SECTION API ---------------- //
+
+app.get('/api/contacts', (req, res) => {
+    const contacts = db.get('contacts').value();
+    res.status(200).json({
+       status:200,
+       method: req.method,
+       data: contacts
+    });
+});
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 /**

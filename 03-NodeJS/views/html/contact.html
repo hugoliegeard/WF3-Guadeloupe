@@ -8,9 +8,21 @@
             <div class="jumbotron mt-4">
                 <h1 class="display-4">{{ contact.prenom }} {{ contact.nom }}</h1>
                 <hr class="my-4">
-                <p class="lead"><strong>Email : </strong> {{ contact.email }}</p>
-                <p class="lead"><strong>Téléphone : </strong> {{ contact.tel }}</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="lead"><strong>Email : </strong> {{ contact.email }}</p>
+                            <p class="lead"><strong>Téléphone : </strong> {{ contact.tel }}</p>
+                        </div>
+                        <div class="col-4">
+                            <img class="text-center float-right" src="{{ qrCodeUrl }}" alt="vCard">
+                        </div>
+                    </div>
+                </div>
                 <hr class="my-4">
+                <a class="btn btn-sm btn-danger" href="/contact/{{ contact.id }}/delete">
+                    <i class="fas fa-trash"></i> Supprimer ce contact
+                </a>
                 <a class="btn btn-sm btn-primary" href="/contacts">
                     <i class="fas fa-list"></i> Retourner aux contacts
                 </a>
