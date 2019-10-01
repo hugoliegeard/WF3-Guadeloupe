@@ -5,6 +5,17 @@
  */
 import {Component} from '@angular/core';
 
+class Contact {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address?: object;
+  phone?: number;
+  website?: string;
+  company?: object;
+}
+
 /**
  * @Component est ce qu'on appel un décorateur.
  * Il va nous permettre de définir 3 paramètres
@@ -41,7 +52,7 @@ export class AppComponent {
   title = 'Gestion de Contacts';
 
   // -- Déclaration d'un objet contact
-  unContact = {
+  unContact: Contact = {
     id: 1,
     name: 'Hugo LIEGEARD',
     username: 'hugoliegeard',
