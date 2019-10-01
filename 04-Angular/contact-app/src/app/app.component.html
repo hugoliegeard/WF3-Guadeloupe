@@ -25,6 +25,8 @@
       <div class="list-group">
         <a href="#"
            *ngFor="let contact of mesContacts"
+           (click)="displayProfil( contact )"
+           [class.active]="contactActif === contact"
            class="list-group-item list-group-item-action">
           {{ contact.name }}
         </a>
@@ -33,11 +35,23 @@
 
     <!-- Profil de mon utilisateur -->
     <div class="col-sm-8">
-      <div class="jumbotron">
-        <h1 class="display-4">Hugo LIEGEARD</h1>
-        <p class="lead">hugoliegeard</p>
+
+      <!-- Si le contact est actif  -->
+      <div class="jumbotron" *ngIf="contactActif">
+        <h1 class="display-4">{{ contactActif.name }}</h1>
+        <p class="lead">{{ contactActif.username }}</p>
         <hr class="my-4">
+        <input type="text"
+                [(ngModel)]="contactActif.name"
+               class="form-control">
       </div> <!-- /.jumbotron -->
+
+      <!-- Si le contact n'est pas actif  -->
+      <div class="jumbotron" *ngIf="!contactActif">
+        <h1 class="display-4">Bienvenue</h1>
+        <p class="lead">Choisissez un Contact</p>
+      </div> <!-- /.jumbotron -->
+
     </div> <!-- /.col-sm-8 -->
   </div> <!-- /.row -->
 

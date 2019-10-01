@@ -40,6 +40,7 @@ export class AppComponent {
 
   // -- Déclaration d'une variable
   title = 'Gestion de Contacts';
+  contactActif: Contact;
 
   // -- Déclaration d'un objet contact
   unContact: Contact = {
@@ -71,4 +72,14 @@ export class AppComponent {
     },
   ];
 
+  /**
+   * Permet d'afficher le profil
+   * d'un contact.
+   */
+  displayProfil( contactCliqueParMonUtilisateur: Contact ) {
+    // console.log( contactCliqueParMonUtilisateur );
+
+    this.contactActif = contactCliqueParMonUtilisateur;
+
+  }
 }
