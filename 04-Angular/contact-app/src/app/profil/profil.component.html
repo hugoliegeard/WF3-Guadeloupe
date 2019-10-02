@@ -1,0 +1,15 @@
+<!-- Si le contact est actif  -->
+<div class="jumbotron" *ngIf="contactProfil">
+  <h1 class="display-4">{{ contactProfil.name }}</h1>
+  <p class="lead">{{ contactProfil.username }}</p>
+  <hr class="my-4">
+  <input type="text"
+         [(ngModel)]="contactProfil.name"
+         class="form-control">
+</div> <!-- /.jumbotron -->
+
+<!-- Si le contact n'est pas actif  -->
+<div class="jumbotron" *ngIf="!contactProfil">
+  <h1 class="display-4">Bienvenue</h1>
+  <p class="lead">Choisissez un Contact</p>
+</div> <!-- /.jumbotron -->
