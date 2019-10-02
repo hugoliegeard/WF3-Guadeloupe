@@ -82,4 +82,12 @@ export class AppComponent {
     this.contactActif = contactCliqueParMonUtilisateur;
 
   }
+
+  /**
+   * Le nouveau contact récupéré
+   * depuis le composant New Comp
+   */
+  addContact(nouveauContact: Contact) {
+    this.mesContacts.push( nouveauContact );
+  }
 }
