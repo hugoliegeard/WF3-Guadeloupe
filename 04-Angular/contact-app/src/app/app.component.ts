@@ -3,8 +3,9 @@
  * de notre application, on importe "component"
  * via @angular/core.
  */
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Contact} from './models/contact';
+import {StorageService} from './services/storage.service';
 
 /**
  * @Component est ce qu'on appel un décorateur.
@@ -36,7 +37,10 @@ import {Contact} from './models/contact';
  * Dans notre contexte MVVM, notre classe
  * correspond au Model.
  */
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  constructor(private storageService: StorageService) {
+  }
 
   // -- Déclaration d'une variable
   title = 'Gestion de Contacts';
@@ -51,32 +55,13 @@ export class AppComponent {
   };
 
   // -- Tableau de Contacts
-  mesContacts: Contact[] = [
-    {
-      id: 1,
-      name: 'Hugo LIEGEARD',
-      username: 'hugoliegeard',
-      email: 'wf3@hl-media.fr',
-    },
-    {
-      id: 2,
-      name: 'Nia VITALIS',
-      username: 'niavitalis',
-      email: 'nia971@gmail.com'
-    },
-    {
-      id: 3,
-      name: 'Astrid JONATHAN',
-      username: 'astridjonathan',
-      email: 'astrid.j@gmail.com'
-    },
-  ];
+  mesContacts: Contact[] = [];
 
   /**
    * Permet d'afficher le profil
    * d'un contact.
    */
-  displayProfil( contactCliqueParMonUtilisateur: Contact ) {
+  displayProfil(contactCliqueParMonUtilisateur: Contact) {
     // console.log( contactCliqueParMonUtilisateur );
 
     this.contactActif = contactCliqueParMonUtilisateur;
@@ -88,6 +73,22 @@ export class AppComponent {
    * depuis le composant New Comp
    */
   addContact(nouveauContact: Contact) {
-    this.mesContacts.push( nouveauContact );
+    // -- Je pousse dans mon tableau le nouveau contact
+    this.mesContacts.push(nouveauContact);
+
+    // -- J'Enregistre dans le storage mes contacts
+    this.storageService.saveContacts(
+      this.mesContacts
+    );
   }
+
+  /**
+   * Je récupère les contacts du storage,
+   * je les insère dans mon tableau "mesContacts"
+   * au moment ou l'application s'initialise. "ngOnInit"
+   */
+  ngOnInit(): void {
+    this.mesContacts = this.storageService.getContacts();
+  }
+
 }
