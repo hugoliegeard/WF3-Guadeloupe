@@ -8,9 +8,24 @@
 
 <ion-content>
   <ion-list>
+
+    <!-- Liste des tâches -->
     <ion-item *ngFor="let task of tasks">
       <ion-label>{{ task.title }}</ion-label>
-      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="task.status"
+                    [checked]="task.status"
+                    slot="start"></ion-checkbox>
     </ion-item>
+
+    <!-- Ajouter une tâche -->
+    <ion-item><pre>{{ tasks | json }}</pre></ion-item>
+    <ion-item>
+      <ion-input type="text"
+                 [(ngModel)]="task.title"
+                 (keypress)="saveTask($event.code)"
+                 placeholder="Ajouter une tâche.">
+      </ion-input>
+    </ion-item>
+
   </ion-list>
 </ion-content>
