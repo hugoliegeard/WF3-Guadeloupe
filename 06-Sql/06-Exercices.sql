@@ -38,12 +38,4 @@ SELECT prenom, nom, sexe, date_embauche, salaire, service
 
 # Afficher l'employé ayant été embauché en dernier.
 SELECT * FROM employes
-	WHERE date_embauche = ( SELECT MAX(date_embauche) FROM employes ) ;
-    
-    
-    
-    
-    
-    
-    
-    ;
+	WHERE date_embauche = ( SELECT MAX(date_embauche) FROM employes );
