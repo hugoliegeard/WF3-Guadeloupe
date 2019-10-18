@@ -578,6 +578,159 @@ echo '$apprenantes est de type : ' . gettype( $apprenantes );
                      . '</small>'
                      . '</h1>';
 
+    $mesContacts = []; // Déclarer un tableau vide.
+    $mesContacts[] = 'Hugo'; // Ajouter un élément dans un tableau
+    $mesContacts[] = 'Nia'; // Indice affecter automatiquement par PHP
+    $mesContacts[10] = 255; // Indice préciser manuellement
+    $mesContacts[] = 'Aurélie'; // PHP continu après a 11.
+
+    echo '<pre>';
+        print_r( $mesContacts );
+    echo '</pre>';
+
+    $contacts = [];
+    $contacts[] = [
+        'prenom' => 'Hugo',
+        'nom' => 'LIEGEARD'
+    ];
+
+    $contacts[] = [
+        'prenom' => 'Nia',
+        'nom' => 'VITALIS'
+    ];
+
+    $contacts[] = [
+        'prenom' => 'Aurélie',
+        'nom' => 'NABAJOTH'
+    ];
+
+    $contacts[] = [
+        'prenom' => 'Gaëlle',
+        'nom' => 'CHARLES-BELAMOUR'
+    ];
+
+    echo '<pre>';
+        print_r( $contacts );
+    echo '</pre>';
+
+    // Afficher les prénoms de chaque contacts :
+    echo $contacts[0]['prenom'] . '<br>';
+    echo $contacts[1]['prenom'] . '<br>';
+    echo $contacts[2]['prenom'] . '<br>';
+
+    /*
+        Faire une boucle afin d'afficher les prénoms
+        des contacts dans un paragraphe.
+    */
+
+    // Avec la boucle FOR
+
+    /*
+        NOTA BENE :
+        count et sizeof me retourne la dimension de mon tableau.
+        Autrement dit, le nombre d'éléments.
+        Pas de différence entre les deux fonctions.
+    */
+
+    echo 'La taille de mon tableau est : ' . count($contacts) . '<br>';
+    echo 'La taille de mon tableau est : ' . sizeof($contacts) . '<br>';
+
+    for ( $i = 0 ; $i < count($contacts) ; $i++ ) {
+        echo '<p>' . $contacts[$i]['prenom'] . '</p>';
+    }
+
+    separator();
+
+    // La boucle FOREACH
+
+    /*
+        Quand il y a 2 variables ($index et $valeur) :
+        La 1ère parcours la colonne des indices (index)
+        La 2nd parcours la colonne des valeurs.
+    */
+
+    foreach ($contacts as $index => $valeur) {
+        echo 'Mon contact ' . $valeur['prenom'] . ' est a index ' . $index . '<br>';
+    }
+
+    // Quand il y a 1 variable, c'est la colonne des valeurs.
+
+    foreach ($contacts as $contact) {
+        echo 'Mon contact ' . $contact['prenom'] . '<br>';
+    }
+
+    /*
+    EXERCICE :
+    En utilisant une ou plusieurs boucles foreach
+    afficher les informations (Cle / Valeur) du contact
+    $contact.
+
+    BONUS : Vous utiliserez des listes à puces <ul><li>
+*/
+
+separator();
+
+$contact = [
+    // cle      => valeur
+    'prenom'    => 'Rodrigue',
+    'nom'       => 'NOUEL',
+    'telephone' => [
+        'fixe' => '0596 77 68 56',
+        'port' => '0696 67 45 34',
+        'fax'  => '0596 67 56 45'
+    ],
+    'age'       => '43 ans',
+    'adresse'   => [
+        'rue'   => 'Rue de la Maurine',
+        'ville' => 'Fort-de-France',
+        'cp'    => '97200'
+    ]
+];
+
+$content = '<ul>';
+
+// Je parcours mon tableau $contact
+// Ici $cle prend successivement les valeurs prenom, nom, ...
+foreach ($contact as $cle => $valeur) {
+
+    // Si au cours d'une des itérations (tour de boucle) 
+    // ma $valeur est un tableau...
+    if ( is_array( $valeur ) ) {
+        
+        // --- Alors, je parcours le nouveau tableau
+        $content .= "<li><strong>$cle</strong> : </li>";
+        $content .= "<ul>";
+
+        foreach ($valeur as $key => $value) {
+            $content .= "<li><strong>$key</strong> : $value</li>";
+        }
+
+        $content .= "</ul>";
+
+    } else {
+        // -- Sinon, ma $valeur n'est pas un tableau. Je l'affiche...
+        $content .= "<li><strong>$cle</strong> : $valeur</li>";
+    }
+}
+
+$content .= '</ul>';
+echo $content;
+
+// ------------------------
+
+$txt = 'Lorem ';
+$txt .= 'ipsum ';
+$txt .= 'dolor';
+
+$txt = 'Lorem ' . 'ipsum ' . 'dolor';
+
+echo $txt;
+
+separator();
+
+// Affiche les infos de PHP
+//phpinfo();
+
 ?>
 
 
