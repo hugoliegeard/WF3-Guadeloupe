@@ -40,13 +40,5 @@ ALTER TABLE `article` ADD FOREIGN KEY (`categorie_id`)
     REFERENCES `categorie` (`id`);
     
 ALTER TABLE `article` ADD FOREIGN KEY (`auteur_id`)
-    REFERENCES `auteur` (`id`);
-    
-    
-    
-    
-    
-    
-    
-    
+    REFERENCES `auteur` (`id`);    
     
