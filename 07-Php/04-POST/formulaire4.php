@@ -9,7 +9,7 @@
         2. A la soumission du formulaire, vous vérifierez les données transmisent par l'utilisateur.
 
         3. Si elles sont correctes, vous afficherez un récapitulatif sur la page.
-     -->    
+     -->                                                                                                        
 
      <?php
 

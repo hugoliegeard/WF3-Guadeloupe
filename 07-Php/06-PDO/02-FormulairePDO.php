@@ -30,14 +30,18 @@
                 - Vérifier le format du champ 'email' ;
                 - Le 'message' doit avoir 15 caractères minimum.
 
-            4. Insérer les données vérifiées dans votre BDD.
+             4. Insérer les données vérifiées dans votre BDD. */
 
-            BONUS : Afficher un message de confirmation / d'erreur
+    
+                 
+             
+
+        /*    BONUS : Afficher un message de confirmation / d'erreur
             à l'utilisateur grâce à une alerte bootstrap.
     */
 
     // Initialisation des variables
-            $email = $sujet = $message =null;
+            $email = $sujet = $message = $content =null;
     
             //Si $_POST n'est pas vide et si le formulaire est soumis
              
@@ -67,7 +71,7 @@
                     $errors['sujet'] = "Vous avez oubliez le sujet.";
                 }
             
-                //- Le 'message' doit avoir 15 caractères minimum.
+                // Le message doit avoir 15 caractères minimum.
                 // Vérification du message ( Supérieur a 15 caractères )
 
                 if ( strlen( $message ) < 15 ) {
@@ -75,9 +79,30 @@
                 }
                    
                 var_dump($errors);
-            }
 
+                if (empty($errors)){
+                    $content = '<div class="alert alert-success">Merci, votre message sur : <strong>' . $sujet . '</strong> a bien été envoyé ! </div>';
+                     } else {
+                       // Le tableau n'est pas vide. Il y a des erreurs.
+                       $content = '<div class="alert alert-warning">Echec de la mission.</div>';
+                                 }
+    
+                $query = $db->prepare('
+                                 INSERT INTO `contact` ( `email`, `sujet`, `message`)
+                                         VALUES ( :email, :sujet, :message );
+                                     ');
+                                 
+                    $query->bindValue(':email', $email ,PDO::PARAM_STR);
+                    $query->bindValue(':sujet', $sujet ,PDO::PARAM_STR);
+                    $query->bindValue(':message', $message ,PDO::PARAM_STR);
+                                 
+                    $query->execute();
+            }
+            
+                                 
     ?>
+
+
 
 <!DOCTYPE html>
     <html lang="fr">
@@ -89,37 +114,42 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
+       
     <div class="row">
         <div class="col-sm-6 mx-auto">
             <div class="container">
                 <div class="jumbotron"><h1>Formulaire PDO<h1></div>    
-                <form method="post" action="">
+                <form method="post">
+                <?= $content ?>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control <?= isset($errors['email'])?'is-invalid': "" ?>" 
                             id="email" 
                             name="email"
                             placeholder="email@example.com">
+                            <div class="invalid-feedback"> <?= isset($errors['email'])?$errors['email'] : "" ?></div>
                     </div>
                     <div class="form-group">
                         <label for="sujet">Sujet</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control <?= isset($errors['sujet'])?'is-invalid': "" ?>" 
                             id="sujet" 
                             name="sujet" 
                             placeholder="Sujet...">
+                            <div class="invalid-feedback"><?= isset($errors['sujet'])?$errors['sujet'] : "" ?></div>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea 
-                            class="form-control" 
+                            class="form-control <?= isset($errors['message'])? 'is-invalid' : "" ?>" 
                             id="message" 
                             name="message" 
                             rows="4"
                             placeholder="Votre message..."></textarea>
+                        <div class="invalid-feedback"><?= isset($errors['message'])?$errors['message'] : "" ?></div>
                     </div>
                     <button type="submit" class="btn btn-lg">Envoyer</button>
                 </form>
