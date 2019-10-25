@@ -81,29 +81,30 @@
                 var_dump($errors);
 
                 if (empty($errors)){
-                    $content = '<div class="alert alert-success">Merci, votre message sur : <strong>' . $sujet . '</strong> a bien été envoyé ! </div>';
-                     } else {
-                       // Le tableau n'est pas vide. Il y a des erreurs.
-                       $content = '<div class="alert alert-warning">Echec de la mission.</div>';
-                                 }
     
-                $query = $db->prepare('
-                                 INSERT INTO `contact` ( `email`, `sujet`, `message`)
-                                         VALUES ( :email, :sujet, :message );
-                                     ');
-                                 
+                    $query = $db->prepare('
+                    INSERT INTO `contact` ( `email`, `sujet`, `message`)
+                            VALUES ( :email, :sujet, :message );
+                        ');
+                    
                     $query->bindValue(':email', $email ,PDO::PARAM_STR);
                     $query->bindValue(':sujet', $sujet ,PDO::PARAM_STR);
                     $query->bindValue(':message', $message ,PDO::PARAM_STR);
-                                 
-                    $query->execute();
+                                    
+                    if ($query->execute()) {
+                        $content = '<div class="alert alert-success">Merci, votre message sur : <strong>' . $sujet . '</strong> a bien été envoyé ! </div>';
+                        
+                        $email = $sujet = $message = null;
+                    }
+                   
+                } else {
+                    // Le tableau n'est pas vide. Il y a des erreurs.
+                    $content = '<div class="alert alert-danger">Echec de la mission.</div>';
+                }
             }
             
                                  
     ?>
-
-
-
 <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -128,6 +129,7 @@
                             class="form-control <?= isset($errors['email'])?'is-invalid': "" ?>" 
                             id="email" 
                             name="email"
+                            value="<?= $email ?>"
                             placeholder="email@example.com">
                             <div class="invalid-feedback"> <?= isset($errors['email'])?$errors['email'] : "" ?></div>
                     </div>
@@ -137,6 +139,7 @@
                             type="text" 
                             class="form-control <?= isset($errors['sujet'])?'is-invalid': "" ?>" 
                             id="sujet" 
+                            value="<?= $sujet ?>"
                             name="sujet" 
                             placeholder="Sujet...">
                             <div class="invalid-feedback"><?= isset($errors['sujet'])?$errors['sujet'] : "" ?></div>
@@ -148,7 +151,7 @@
                             id="message" 
                             name="message" 
                             rows="4"
-                            placeholder="Votre message..."></textarea>
+                            placeholder="Votre message..."><?= $message ?></textarea>
                         <div class="invalid-feedback"><?= isset($errors['message'])?$errors['message'] : "" ?></div>
                     </div>
                     <button type="submit" class="btn btn-lg">Envoyer</button>
