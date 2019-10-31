@@ -132,10 +132,10 @@ if (!empty($_GET)) {
                     </thead>
                     <tbody>
                     <?php foreach($contacts as $contact){ ?>
-                        <tr>
-                            <th><?php echo $contact['nomcomplet'] ?></th>
-                            <td><?php echo $contact['email'] ?></td>
-                        </tr>  
+                    <tr>
+                        <th><?php echo $contact['nomcomplet'] ?></th>
+                        <td><?php echo $contact['email'] ?></td>
+                    </tr>  
                     <?php }//Fin du foreach ?>
                     </tbody>
                     </table>
