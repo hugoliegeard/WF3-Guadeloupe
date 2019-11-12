@@ -1,0 +1,150 @@
+/*
+Theme Name: Photogrape
+Author: Hugo LIEGEARD
+Author URI: https://biyn.media
+Description: Thème pour le site Photogrape
+Version: 1.0a
+*/
+
+body {
+    background-image: url(image/photographe.jpg);
+    background-repeat: no-repeat;
+
+    background-color: #210101 !important;
+}
+
+#citation {
+    font-size: 13px;
+    position: relative;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+#nav2 {
+    min-height: 140px;
+    height: auto;
+    background-color: #ffffffd1 !important;
+
+}
+
+#logo {
+    width: 160px;
+    border-radius: 100%;
+}
+
+.menu {
+    font-size: 25px;
+    margin-left: 62px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (min-width: 992px) { 
+    .menu {
+        margin-left: 190px;
+    }
+}
+
+@media (min-width: 1200px) {  
+    .menu {
+        margin-left: 350px;
+    }
+}
+
+.menu > li {
+    padding-right: 50px;
+    list-style: none;
+}
+
+.menu > li a {
+    color: #6e2f50;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+}
+
+.menu > li a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    font-family: 'Great Vibes', cursive !important;
+    text-align: center;
+    color: #590101;
+}
+
+#text {
+
+    text-align: center;
+}
+
+.card-img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.partenaires ul {
+    margin: 12rem 0;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.partenaires ul li {
+    justify-content: space-evenly;
+    display: inline-block;
+}
+
+.partenaires ul li img {
+    height: 90px;
+    filter: grayscale(1);
+    transition: all 0.5s ease-in-out;
+    border-radius: .2rem;
+}
+
+.partenaires ul li img:hover {
+    filter: grayscale(0);
+}
+
+footer {
+
+    background-color: #190101
+}
+
+footer p {
+    color: white;
+}
+
+footer h6 {
+
+    color: white;
+}
+
+.container.presentation {
+    margin-top: 500px !important;
+}
+
+.presentation .card {
+    max-width: 1500px;
+    background-color: #ffffffd1 !important;
+    border-top-left-radius: 2rem;
+    overflow: hidden;
+    border-bottom-right-radius: 2rem;
+}
+
+.header-top {
+    clear: both;
+}
+
+.header-top .navbar {
+    border-top-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
