@@ -17,13 +17,17 @@
     <?php wp_head(); ?>
 </head>
 
-<body>
+<body class="photogrape">
 
-    <div class="container">
+    <!-- Image de Header -->
+    <img src="<?= get_template_directory_uri() ?>/image/photographe.jpg" 
+        class="photogrape__header" alt="<?php bloginfo('name'); ?>">
+
+    <div class="container photogrape__container">
 
         <!-- CITATION -->
         <div class="float-left">
-            <p id="citation">
+            <p id="citation photogrape__citation">
                 <?php bloginfo('name'); ?> | 
                 <?php bloginfo('description'); ?>
             </p>
@@ -31,7 +35,7 @@
 
         <!--BOUTON CONNEXION & INSCRIPTION-->
 
-        <nav id="nav1" class="navbar navbar-expand-md navbar-light float-right">
+        <nav id="nav1" class="photogrape__navbar navbar navbar-expand-md navbar-light float-right">
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                 <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                 <li class="order-1">
@@ -59,10 +63,6 @@
                         }
                     }
                 ?>
-
-                <!-- <a class="navbar-brand" href="#">
-                    <img id="logo" src="<?//= get_template_directory_uri() ?>/image/logophoto.png" alt="logo">
-                </a> -->
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -122,9 +122,9 @@
                     <h6 class="text-uppercase mb-4 font-weight-bold">Google Map</h6>
       <div>
         <!--Google map-->
-        <div id="map-container-google-6" class="z-depth-1-half map-container-5" style="height: 200px">
+        <div id="map-container-google-6" class="z-depth-1-half map-container-5">
           <iframe src="https://maps.google.com/maps?q=New-York&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            frameborder="0" width="100%" style="border:0" allowfullscreen></iframe>
+            frameborder="0" width="100%" height="260" style="border:0" allowfullscreen></iframe>
         </div>
       </div>
       <!--/.Card content-->
