@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Exclusions
+RewriteCond ${REQUEST_URI} ^.+$
+RewriteCond %{REQUEST_FILENAME} \.(gif|jpe?g|png|js|css|swf|php|ico|txt|pdf|xml)$ [OR]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -l
+RewriteRule ^ - [L]
+
+# Règles de Réecriture
+RewriteRule ^([^/]+)/([^/]+) index.php?controller=$1&action=$2 [QSA,L]
+
+# Exemple
+RewriteRule ^accueil.html index.php?controller=default&action=home [QSA,L]
+RewriteRule ^inscription.html index.php?controller=member&action=register [QSA,L]
