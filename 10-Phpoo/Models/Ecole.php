@@ -102,4 +102,12 @@ class Ecole
         $this->classes[] = $classe;
     }
 
+    /**
+     * @return array
+     */
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
 }

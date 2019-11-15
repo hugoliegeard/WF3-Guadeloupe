@@ -1,13 +1,25 @@
 <?php
 
 # Importation de notre classe Ecole
-require_once 'Ecole.php';
+# require_once 'Ecole.php';
 
 # Importation de notre classe Classe
-require_once 'Classe.php';
+# require_once 'Classe.php';
 
 # Importation de notre classe Eleve
-require_once 'Eleve.php';
+# require_once 'Eleve.php';
+
+/* --
+    spl_autoload_register est une fonction permettant de faire de
+    l'autoloading (autochargement de classes). Elle est appelée
+    AUTOMATIQUEMENT par PHP dès qu'on instancie une classe
+    qui n'a pas été inclus.²
+-- */
+spl_autoload_register(function( $class ) {
+    # echo 'Chargement de : ' . $class;
+    require_once 'Models/' . $class . '.php';
+});
+
 
 /* --
     Création d'une instance de la classe Ecole.
@@ -96,3 +108,37 @@ echo '</pre>';
     CONSIGNE : En partant de l'objet $ecole ; affichez la liste
     ol, ul, li des classes et pour chaque classes les étudiants.
 -- */
+
+# Récupération des classes
+$classes = $ecole->getClasses();
+
+# On parcourt nos classes
+echo '<ol>';
+
+/** @var Classe $classe */
+foreach ($classes as $classe) {
+
+        # Afficher le nom de la classe
+        echo '<li>';
+            echo $classe->getNom();
+        echo '</li>';
+
+        # Afficher la liste des élèves
+        echo '<ul>';
+
+            # Je récupère les élèves de la "classe".
+            $eleves = $classe->getEleves();
+
+            /** @var Eleve $eleve */
+            foreach ($eleves as $eleve) {
+
+                echo '<li>';
+                    echo $eleve->getPrenom();
+                echo '</li>';
+
+            }
+
+        echo '</ul>';
+    }
+
+echo '</ol>';
