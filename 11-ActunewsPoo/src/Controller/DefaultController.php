@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController
 {
@@ -13,7 +17,8 @@ class DefaultController
      */
     public function home()
     {
-        echo '<h1>PAGE ACCUEIL | CONTROLLER</h1>';
+        # echo '<h1>PAGE ACCUEIL | CONTROLLER</h1>';
+        return new Response('<h1>PAGE ACCUEIL | CONTROLLER | RESPONSE</h1>');
     }
 
     /**
@@ -22,7 +27,8 @@ class DefaultController
      */
     public function category()
     {
-        echo '<h1>PAGE CATEGORIE | CONTROLLER</h1>';
+        # echo '<h1>PAGE CATEGORIE | CONTROLLER</h1>';
+        return new Response('<h1>PAGE CATEGORIE | CONTROLLER | RESPONSE</h1>');
     }
 
     /**
@@ -31,7 +37,8 @@ class DefaultController
      */
     public function article()
     {
-        echo '<h1>PAGE ARTICLE | CONTROLLER</h1>';
+        # echo '<h1>PAGE ARTICLE | CONTROLLER</h1>';
+        return new Response('<h1>PAGE ARTICLE | CONTROLLER | RESPONSE</h1>');
     }
 
 }

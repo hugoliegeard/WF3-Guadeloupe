@@ -9,13 +9,15 @@
  * en s'aidant des paramètres dans l'URL.
  */
 
-# Aperçu de $_GET
-# echo '<pre>';
-# print_r( $_GET );
-# echo '</pre>';
-
 # Chargement Automatique des Classes
-require_once 'autoload.php';
+# require_once 'autoload.php';
+
+# Autochargement des classes avec Composer
+require_once '../vendor/autoload.php';
 
 # Chargement des routes.
-require_once 'routes.php';
+require_once '../app.php';
+
+# Aperçu de $_GET
+# dump( $_GET );
+# dump( dirname($request->server->get('SCRIPT_FILENAME'), 2)  );
