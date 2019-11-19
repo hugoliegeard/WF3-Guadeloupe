@@ -9,15 +9,25 @@
  * en s'aidant des paramètres dans l'URL.
  */
 
-# Chargement Automatique des Classes
-# require_once 'autoload.php';
+
+use Symfony\Component\HttpFoundation\Request;
 
 # Autochargement des classes avec Composer
 require_once '../vendor/autoload.php';
 
-# Chargement des routes.
-require_once '../app.php';
+# Arrivée d'une requète
+# Correspond a la requête entrante de notre utilisateur.
+$request = Request::createFromGlobals();
 
-# Aperçu de $_GET
-# dump( $_GET );
-# dump( dirname($request->server->get('SCRIPT_FILENAME'), 2)  );
+# Mise en Place du Container
+$container = \App\Model\Container\Container::getInstance();
+
+# On stocke la requète de l'utilisateur dans le container
+$container->set('request', $request);
+# dump( $container );
+
+# Chargement de la configuration
+require_once '../config.php';
+
+# Chargement de l'application
+require_once '../app.php';
