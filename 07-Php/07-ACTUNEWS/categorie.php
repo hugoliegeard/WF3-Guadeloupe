@@ -20,7 +20,15 @@ require_once(__DIR__ . '/partials/header.php');
 <div class="py-5 bg-light">
     <div class="container ">
         <div class="row">
-            <?php foreach ($articles as $article) { ?>
+                <?php
+                        if (empty($articles)){?>
+                                <div colspan="10"class="mx-auto">
+                                    <div class="alert alert-warning">
+                                        Pas d'article dans cette catégorie....
+                                    </div>
+                               
+                        <?php } ?>
+                <?php foreach ($articles as $article) { ?>
                 
             <div class="col-md-4 mt-4">
                 <div class="card shadow-sm">
@@ -31,6 +39,7 @@ require_once(__DIR__ . '/partials/header.php');
                             <?= summarize($article['contenu'])?>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
+                       
                             <a href="article.php?id_article=<?=$article['id']?>" class="btn btn-primary">Lire la suite</a>
                             <small class="text-muted"><?=$article['prenom']. ' '.$article['nom'] ?></small>
                         </div>

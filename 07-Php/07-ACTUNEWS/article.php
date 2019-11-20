@@ -12,8 +12,6 @@
 
 ?>
 
-
-
 <!-- Contenu de la page -->
 
 <div class="p-3 mx-auto text-center">
@@ -21,14 +19,14 @@
 </div>
 
 <div class="py-5 bg-light">
-    <div class="container ">
-        <div class="row">
-            <div class="col-md-6">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-12  ">
                 <img class="img-fluid" src="assets/img/article/<?=$article['image']?>" alt="<?=$article['titre']?>">
-            </div> <!-- Fin col-md-6 -->
-            <div class="col-md-6">
+            </div> <!-- Fin col-md-12 -->
+            <div class="col-md-12 mt-4">
                 <?=$article['contenu']?>
-            </div> <!-- Fin col-md-6 -->
+            </div> <!-- Fin col-md-12 -->
         </div>
     </div>
 </div>

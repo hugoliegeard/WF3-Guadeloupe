@@ -5,6 +5,7 @@
     //Connexion à la BDD
     require_once(__DIR__ . '/../config/database.php');
    
+    
     // Récupérations de nos fonctions
     require_once(__DIR__ . '/../functions/categorie.php');
     require_once(__DIR__ . '/../functions/article.php');
@@ -16,10 +17,11 @@
 
      
     $categories  =  getCategories();
-
-    // Si un auteur est en sessin, alors $ auteur prendra comme valeur le tableau d'auteur. Sinon, $auteur prendra comme valeur false.
+    // SI un auteur est en session alors $auteur prendra comme vameur le tableau d'auteur sinon false
+    // sinon faire un if online() avant les balsie de connexion et inscription
     $auteurIsLogged = isOnline();
- 
+    $auteur= $auteurIsLogged;
+   //var_dump($auteur['id']);
 
 ?>
 
@@ -33,7 +35,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- CSS PERSO -->
     <link rel="stylesheet" href="assets/css/style.css">
+     <!-- CDN CKEDITOR -->
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <title>Guadeloupe Actualités</title>
+    
 </head>
 <body>
 
@@ -57,22 +62,16 @@
                 <?php } ?>
             </ul>
             <div class="text-right">
-                <!-- <a class="nav-item btn btn-outline-warning mx-2" href="creer-un-article.php">Créer un article</a> -->
 
-                <?php if ( $auteurIsLogged ) { ?>
-
-                    <span class="navbar-text mx-2">
-                        Bonjour <strong><?= $auteurIsLogged['prenom']; ?></strong>
-                    </span>
-
+                
+                <?php if ($auteurIsLogged){ ?>
+                    <span class="navbar-text mx-2">Bonjour <strong><?= $auteurIsLogged['prenom']?>,</strong></span>
+                    <a class="nav-item btn btn-outline-warning mx-2" href="creer-un-article.php">Créer un article</a>
+                    <a class="nav-item btn btn-outline-info mx-2" href="mes-articles.php?id_auteur=<?= $auteur['id'] ?>">Mes Articles</a>
                     <a class="nav-item btn btn-outline-primary mx-2" href="deconnexion.php">Déconnexion</a>
-
                 <?php } else { ?>
-
-                    <a class="nav-item btn btn-outline-primary mx-2" href="connexion.php">Connexion</a>
-
-                    <a class="nav-item btn btn-outline-info mx-2" href="inscription.php">Inscription</a>
-
+                <a class="nav-item btn btn-outline-info mx-2" href="connexion.php">Connexion</a>
+                <a class="nav-item btn btn-outline-warning mx-2" href="inscription.php">Inscription</a>
                 <?php } ?>
             </div>
         </div>
