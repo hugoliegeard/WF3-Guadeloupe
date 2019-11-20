@@ -1,0 +1,21 @@
+ title UML SEQUENCE DIAGRAM
+
+Client->FrontController: Le client transmet\nune requète à l'application.
+
+FrontController->DefaultController: Transfert la requète\nau controleur en charge.
+
+note over FrontController,DefaultController:Le FrontController **détermine** quel\n est le controleur **responsable** du\n**traitement** de la requète.
+
+DefaultController->AbstractController : Execute la fonction **render()**
+
+note over DefaultController,AbstractController:Le Demande le **rendu d'une vue** twig\n via la fonction **render** du **TraitController**\ndisponible dans via **AbstractController**
+
+AbstractController->Container : Demande au **Container**\nL'instance de Twig.
+
+note over AbstractController,Container: Le **Container** contient **toutes les\ninstances** de notre application.
+
+AbstractController<-Container : Le **Container** retourne\n l'instance de Twig
+
+DefaultController<-AbstractController : Le **DefaultController** reçoit la réponse
+
+Client<-DefaultController : Retour d'une **réponse** au client.

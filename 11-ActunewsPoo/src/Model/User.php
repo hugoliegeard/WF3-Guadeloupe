@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class User
-{
+use App\Model\Db\DbTable;
 
+class User extends DbTable
+{
+    protected $table = 'auteur';
 }
