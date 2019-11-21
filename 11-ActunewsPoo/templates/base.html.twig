@@ -12,14 +12,17 @@
 <body>
 
     {# -- Zone des contenus -- #}
-    <main class="container">
+    <main class="container-fluid">
         <div class="row">
             <div class="col">
                 {% include 'components/_nav.html.twig' %}
                 {% block content %}{% endblock %}
+                {% include 'components/_footer.html.twig' %}
             </div>
         </div>
     </main>
+
+
 
     {# -- Zone des scripts -- #}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

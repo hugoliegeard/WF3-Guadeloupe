@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Model\Article;
-use App\Model\Category;
-use App\Model\User;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
@@ -19,17 +16,13 @@ class DefaultController extends AbstractController
      */
     public function home()
     {
+        # 1. Récupération des Articles de la BDD
+        $articles = (new Article())->getLastArticles();
 
-        # Vérifications
-        $article = new Article();
-        $category = new Category();
-        $user = new User();
-
-        dump( $article->findAll() );
-        dump( $category->findAll() );
-        dump( $user->findAll() );
-
-        return $this->render('default/home.html.twig');
+        # 2. Transmission des données à la vue
+        return $this->render('default/home.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
@@ -38,9 +31,24 @@ class DefaultController extends AbstractController
      */
     public function category()
     {
-        # echo '<h1>PAGE CATEGORIE | CONTROLLER</h1>';
-        # return new Response('<h1>PAGE CATEGORIE | CONTROLLER | RESPONSE</h1>');
-        return $this->render('default/category.html.twig');
+
+        # Récupération de l'instance de Request dans le container
+        $request = $this->getParameter('request');
+        # dump($request);
+
+        # Récupération dans la Request du paramètre $_GET['id']
+        $idCategorie = $request->get('id') ?? 1;
+
+        # Récupération des articles de la catégorie
+        $article = new Article();
+
+        $where = 'idCategorie = ' . $idCategorie;
+        $articles = $article->findAll($where);
+        # dump( $articles );
+
+        return $this->render('default/category.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
@@ -49,9 +57,19 @@ class DefaultController extends AbstractController
      */
     public function article()
     {
-        # echo '<h1>PAGE ARTICLE | CONTROLLER</h1>';
-        # return new Response('<h1>PAGE ARTICLE | CONTROLLER | RESPONSE</h1>');
-        return $this->render('default/article.html.twig');
+        # Récupération de l'instance de Request dans le container
+        $request = $this->getParameter('request');
+
+        # Récupération dans la Request du paramètre $_GET['id']
+        $idArticle = $request->get('id') ?? 0; // $_GET['id']
+
+        # Récupération de l'article dans la BDD
+        $article = (new Article())->findOne($idArticle);
+
+        # Transmission de l'article a la vue
+        return $this->render('default/article.html.twig', [
+            'article' => $article
+        ]);
     }
 
 }

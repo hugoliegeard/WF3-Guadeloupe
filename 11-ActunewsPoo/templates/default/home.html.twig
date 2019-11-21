@@ -12,52 +12,28 @@
     <div class="py-5 bg-light">
         <div class="container ">
             <div class="row">
-                <div class="col-md-4 mt-4">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" src="https://picsum.photos/200/150" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Titre</h5>
-                            <div class="card-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto autem consectetur corporis ex.</p>
+
+                {% for article in articles %}
+                    <div class="col-md-4 mt-4">
+                        <div class="card shadow-sm">
+                            <img class="card-img-top" src="images/articles/{{ article.image }}" alt="{{ article.titre }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.titre }}</h5>
+                                <div class="card-text">
+                                    <p>{{ article.contenu|striptags|u.truncate(200, '...') }}</p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ request.getBasePath() ~ '/default/article?id=' ~ article.id }}" class="btn btn-primary">Lire la suite</a>
+                                    <small class="text-muted">
+                                        {{ article.prenom }} {{ article.nom }}
+                                    </small>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="btn btn-primary">Lire la suite</a>
-                                <small class="text-muted">Hugo LIEGEARD</small>
-                            </div>
-                        </div>
-                    </div> <!-- Fin card -->
-                </div>
-                <div class="col-md-4 mt-4">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" src="https://picsum.photos/200/150" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Titre</h5>
-                            <div class="card-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto autem consectetur corporis ex.</p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="btn btn-primary">Lire la suite</a>
-                                <small class="text-muted">Hugo LIEGEARD</small>
-                            </div>
-                        </div>
-                    </div> <!-- Fin card -->
-                </div>
-                <div class="col-md-4 mt-4">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" src="https://picsum.photos/200/150" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Titre</h5>
-                            <div class="card-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto autem consectetur corporis ex.</p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="btn btn-primary">Lire la suite</a>
-                                <small class="text-muted">Hugo LIEGEARD</small>
-                            </div>
-                        </div>
-                    </div> <!-- Fin card -->
-                </div>
-            </div>
+                        </div> <!-- Fin card -->
+                    </div>
+                {% endfor %}
+
+            </div> <!-- Fin row -->
         </div> <!-- Fin container -->
     </div>
 {% endblock %}
