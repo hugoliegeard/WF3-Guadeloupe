@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ article.titre | title }}{% endblock %}
+
+{% block content %}
+    <div class="p-3 mx-auto text-center">
+        <div class="container">
+            <h1 class="display-4">
+                {{ article.titre | title }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="py-5 bg-light">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-fluid" src="../images/articles/{{ article.image }}"
+                         alt="{{ article.titre }}">
+                </div> <!-- Fin col-md-6 -->
+                <div class="col-md-6">
+                    {{ article.contenu | raw }}
+                </div> <!-- Fin col-md-6 -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

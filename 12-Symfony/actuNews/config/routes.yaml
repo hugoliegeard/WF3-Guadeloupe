@@ -1,0 +1,3 @@
+default_index: # controller_action
+    path: / # mon url
+    controller: App\Controller\DefaultController::index
