@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ article.titre | title }}{% endblock %}
+{% block title %}{{ article.title | title }}{% endblock %}
 
 {% block content %}
     <div class="p-3 mx-auto text-center">
         <div class="container">
             <h1 class="display-4">
-                {{ article.titre | title }}
+                {{ article.title | title }}
             </h1>
         </div>
     </div>
@@ -15,11 +15,12 @@
         <div class="container ">
             <div class="row">
                 <div class="col-md-6">
-                    <img class="img-fluid" src="../images/articles/{{ article.image }}"
-                         alt="{{ article.titre }}">
+                    <img class="img-fluid"
+                         src="{{ asset( 'images/articles/' ~ article.image ) }}"
+                         alt="{{ article.title }}">
                 </div> <!-- Fin col-md-6 -->
                 <div class="col-md-6">
-                    {{ article.contenu | raw }}
+                    {{ article.content | raw }}
                 </div> <!-- Fin col-md-6 -->
             </div>
         </div>

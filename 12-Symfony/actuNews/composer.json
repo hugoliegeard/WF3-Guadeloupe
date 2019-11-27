@@ -6,12 +6,17 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.5",
+        "symfony/asset": "5.0.*",
         "symfony/console": "5.0.*",
         "symfony/debug-pack": "^1.0",
         "symfony/dotenv": "5.0.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/maker-bundle": "^1.14",
+        "symfony/orm-pack": "^1.0",
+        "symfony/string": "5.0.*",
+        "symfony/yaml": "5.0.*",
+        "twig/string-extra": "^3.0"
     },
     "require-dev": {
     },

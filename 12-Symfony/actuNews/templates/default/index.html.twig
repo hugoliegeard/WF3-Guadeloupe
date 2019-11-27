@@ -13,25 +13,32 @@
         <div class="container ">
             <div class="row">
 
-                {#{% for article in articles %}
+                {% for article in articles %}
+
                     <div class="col-md-4 mt-4">
                         <div class="card shadow-sm">
-                            <img class="card-img-top" src="images/articles/{{ article.image }}" alt="{{ article.titre }}">
+                            <img class="card-img-top" src="{{ asset( 'images/articles/' ~ article.image ) }}"
+                                 alt="{{ article.title }}">
                             <div class="card-body">
-                                <h5 class="card-title">{{ article.titre }}</h5>
+                                <h5 class="card-title">{{ article.title }}</h5>
                                 <div class="card-text">
-                                    <p>{{ article.contenu|striptags|u.truncate(200, '...') }}</p>
+                                    <p>{{ article.content|striptags|u.truncate(200, '...') }}</p>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="{{ request.getBasePath() ~ '/default/article?id=' ~ article.id }}" class="btn btn-primary">Lire la suite</a>
+                                    <a href="{{ path('default_article', {
+                                        'categorie' : article.category.alias,
+                                        'alias' : article.alias,
+                                        'id' : article.id
+                                    }) }}"
+                                       class="btn btn-primary">Lire la suite</a>
                                     <small class="text-muted">
-                                        {{ article.prenom }} {{ article.nom }}
+                                        {{ article.user.firstname }} {{ article.user.lastname }}
                                     </small>
                                 </div>
                             </div>
                         </div> <!-- Fin card -->
                     </div>
-                {% endfor %}#}
+                {% endfor %}
 
             </div> <!-- Fin row -->
         </div> <!-- Fin container -->
