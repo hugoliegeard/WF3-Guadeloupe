@@ -13,6 +13,13 @@
 
     <div class="py-5 bg-light">
         <div class="container ">
+
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             <div class="row">
                 <div class="col-md-6">
                     <img class="img-fluid"

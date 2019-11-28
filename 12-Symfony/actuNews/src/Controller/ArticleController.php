@@ -5,12 +5,23 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
+
+    use HelperTrait;
+
     /**
      * Démonstration de l'ajout d'un
      * article avec Doctrine.
@@ -64,4 +75,119 @@ class ArticleController extends AbstractController
         return new Response('Nouvel article : ' . $article->getTitle());
 
     }
+
+    /**
+     * Formulaire permettant l'ajout d'un article
+     * @Route("/creer-un-article", name="article_add")
+     * @param Request $request
+     * @return Response
+     */
+    public function addArticle(Request $request)
+    {
+        # Création d'un nouvel article
+        $article = new Article();
+
+        # Récupération d'un User dans la BDD
+        $journaliste = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find(1);
+
+        # On affecte le User à l'article
+        $article->setUser($journaliste);
+
+        # Création du Formulaire
+        $form = $this->createFormBuilder($article)
+
+            # Titre de l'article
+            ->add('title', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Titre de l\'article'
+                ]
+            ])
+
+            # Category
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => false,
+            ])
+
+            # Article's Content
+            ->add('content', TextareaType::class, [
+                'required' => false,
+                'label' => false
+            ])
+
+            # Image upload
+            ->add('image', FileType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'dropify'
+                ]
+            ])
+
+            # Submit Button
+            ->add('submit', SubmitType::class, [
+                'label' => 'Publier mon Article'
+            ])
+
+            # Creates Form
+            ->getForm();
+
+        # Permet a SF de gérer les données reçues.
+        $form->handleRequest($request);
+
+        # Si le formulaire est soumis et que les informations sont valides
+        if ( $form->isSubmitted() && $form->isValid() ) {
+
+            # -- Debut upload de l'image -- #
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form['image']->getData();
+            if ($imageFile) {
+
+                $newFilename = $this->slugify($article->getTitle()) . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('articles_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $article->setImage($newFilename);
+
+            }
+            # -- Fin upload de l'image -- #
+
+            # Génération de l'alias de l'article
+            $article->setAlias( $this->slugify( $article->getTitle() ) );
+
+            # Sauvegarde en BDD
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            # Notification
+            $this->addFlash('notice',
+                'Félicitation votre article est en ligne !');
+
+            # Redirection
+            return $this->redirectToRoute('default_article', [
+                'categorie' => $article->getCategory()->getAlias(),
+                'alias' => $article->getAlias(),
+                'id' => $article->getId()
+            ]);
+        }
+
+        # Transmission du Formulaire a la vue
+        return $this->render('article/form.html.twig', [
+           'form' => $form->createView()
+        ]);
+
+    }
+
 }

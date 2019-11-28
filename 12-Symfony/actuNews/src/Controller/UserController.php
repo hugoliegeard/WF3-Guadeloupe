@@ -23,6 +23,15 @@ class UserController extends AbstractController
      */
     public function register()
     {
+
+        # 1. Création d'un nouvel Utilisateur
+        # 2. Création du Formulaire
+        # 3. Vérification de la soumission
+        # 4. Encodage du MDP ( Ignorer cette étape )
+        # 5. Sauvegarde en BDD
+        # 6. Notification Flash
+        # 7. Redirection sur la page de Connexion
+
         return $this->render('user/register.html.twig');
     }
 
