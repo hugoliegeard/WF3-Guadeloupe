@@ -18,6 +18,31 @@
                         </a>
                     </li>
                 {% endfor %}
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark text-white ml-2"
+                           href="{{ path('app_logout') }}">
+                            Déconnexion
+                        </a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark text-white"
+                           href="{{ path('app_login') }}">
+                            Connexion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark text-white ml-2"
+                           href="{{ path('user_register') }}">
+                            Inscription
+                        </a>
+                    </li>
+                {% endif %}
+
+
             </ul>
         </div>
     </div>

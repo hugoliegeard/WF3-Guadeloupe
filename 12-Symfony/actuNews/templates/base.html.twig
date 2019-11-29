@@ -19,6 +19,31 @@
     <div class="row">
         <div class="col">
             {{ render(controller('App\\Controller\\DefaultController::menu')) }}
+
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="container my-4">
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-info text-center">
+                                Bonjour {{ app.user.firstname }} -
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <em>Administrateur</em>
+                                {% elseif is_granted('ROLE_REPORTER') %}
+                                    <em>Journaliste</em>
+                                {% else %}
+                                    <em>Abonné(e)</em>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_REPORTER') %}
+                                    | <a href="{{ path('article_add') }}">Rédiger un Article</a>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             {% block content %}{% endblock %}
             {% include 'components/_footer.html.twig' %}
         </div>

@@ -1,0 +1,42 @@
+security:
+
+    encoders:
+        App\Entity\User: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: null }
+        user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            provider: user_provider
+            anonymous: lazy
+            guard:
+                authenticators:
+                    - App\Security\AppUserAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: default_index
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/reporter, roles: ROLE_REPORTER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    role_hierarchy:
+        ROLE_REPORTER: ROLE_USER
+        ROLE_ADMIN: ROLE_REPORTER

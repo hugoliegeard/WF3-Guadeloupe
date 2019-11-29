@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -79,6 +80,7 @@ class ArticleController extends AbstractController
     /**
      * Formulaire permettant l'ajout d'un article
      * @Route("/creer-un-article", name="article_add")
+     * @Security("is_granted('ROLE_REPORTER')")
      * @param Request $request
      * @return Response
      */
